@@ -54,9 +54,8 @@ button {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   color: black;
-  background-color: #eeeeeeee;
+  background-color: #ffffff;
   margin: 10px;
-  text-shadow: 1px 1px 0px grey;
   text-align: center;
   padding: 5px;  
   cursor: pointer; 
@@ -67,7 +66,6 @@ button {
 button:active {
   color: red;
   background-color: #ffffff;
-  text-shadow: 1px 1px 0px grey;
 }
 
 button:focus {
@@ -92,7 +90,6 @@ button:focus {
   color: black;
   background-color: #eeeeeeee;
   margin: 10px;
-  text-shadow: 1px 1px 0px grey;
   text-align: center;
   padding: 5px; 
 
@@ -107,16 +104,14 @@ button:focus {
 
 /* This allows Javascript/WebServer to control the button feedback*/ 
 .btn.active {
-  color: red;
   background-color: #ffffff;
-  text-shadow: 1px 1px 0px grey;
 }
 
 /************* SourceSelect type button **************************/
 
-.btn_source { 
+.btn_green { 
   color: black;
-  background-color: #98ff98;
+  background-color: #66ff66;
   text-align: center;
   padding: 5px;  
 
@@ -128,14 +123,14 @@ button:focus {
 } 
 
 /* This allows Javascript/WebServer to control the button feedback*/
-.btn_sourced.active { 
-  background-color: #98ff98;
+.btn_green.active { 
+  background-color: #4CAF50;
   color: #ffffff;
 }
 
-.btn_sourced { 
+.btn_red { 
   color: black;
-  background-color: #ff8c69;
+  background-color: #ff9999;
   text-align: center;
   padding: 5px;  
 
@@ -146,8 +141,8 @@ button:focus {
 } 
 
 /* This allows Javascript/WebServer to control the button feedback*/
-.btn_sourced.active { 
-  background-color: #ff8c69;
+.btn_red.active { 
+  background-color: #f44336;
   color: #ffffff;
 }
 
@@ -161,7 +156,6 @@ input[type=button], input[type=submit], input[type=reset] {
   color: black;
   background-color: #eeeeeeee;
   margin: 10px;
-  text-shadow: 1px 1px 0px grey;
   text-align: center;
   padding: 5px; 
 }
