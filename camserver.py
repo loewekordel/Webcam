@@ -7,11 +7,13 @@ import io
 import subprocess
 from flask import Flask, render_template, Response
 from flask_restful import Resource, Api, reqparse, abort
-import atexit
 from datetime import datetime
 from threading import Condition
 import time
 from pathlib import Path
+import logging
+
+logger = logging.getlogger(__name__)
 
 from libcamera import Transform
 
@@ -52,9 +54,9 @@ class Camera:
         return self.frame
 
     def VideoSnap(self):
-        print("Snap")
+        logger.info("Snap")
         timestamp = datetime.now().isoformat("_", "seconds")
-        print(timestamp)
+        logger.info(timestamp)
         self.still_config = self.camera.create_still_configuration()
         self.file_output = self.output_dir_pictures / f"snap_{timestamp}.jpg"
         time.sleep(1)
@@ -98,9 +100,9 @@ class VideoFeed(Resource):
 def show_time():
     """Show current date time in text format"""
     rightNow = datetime.now()
-    print(rightNow)
+    logger.info(rightNow)
     currentTime = rightNow.strftime("%d-%m-%Y_%H:%M:%S")
-    print("date and time =", currentTime)
+    logger.info("date and time =", currentTime)
 
     return currentTime
 
@@ -129,7 +131,7 @@ def info():
 @app.route("/startRec.html")
 def startRec():
     """Start Recording Pane"""
-    print("Video Record")
+    logger.info("Video Record")
     basename = show_time()
     directory = basename
     output.fileoutput = OUTPUT_DIR_VIDEO / f"{directory}.h264"
@@ -141,7 +143,7 @@ def startRec():
 @app.route("/stopRec.html")
 def stopRec():
     """Stop Recording Pane"""
-    print("Video Stop")
+    logger.info("Video Stop")
     output.stop()
 
     return render_template("stopRec.html")
@@ -150,9 +152,9 @@ def stopRec():
 @app.route("/srecord.html")
 def srecord():
     """Sound Record Pane"""
-    print("Recording Sound")
+    logger.info("Recording Sound")
     timestamp = datetime.now().isoformat("_", "seconds")
-    print(timestamp)
+    logger.info(timestamp)
     subprocess.Popen(
         f'arecord -D dmic_sv -d 30 -f S32_LE {OUTPUT_DIR_SOUND}/cam_$(date "+%b-%d-%y-%I:%M:%S-%p").wav -c 2',
         shell=True,
@@ -164,7 +166,7 @@ def srecord():
 @app.route("/snap.html")
 def snap():
     """Snap Pane"""
-    print("Taking a photo")
+    logger.info("Taking a photo")
     camera.VideoSnap()
 
     return render_template("snap.html")
@@ -174,6 +176,7 @@ api.add_resource(VideoFeed, "/cam")
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     OUTPUT_DIR_VIDEO.mkdir(exist_ok=True, parents=True)
     OUTPUT_DIR_PICTURES.mkdir(exist_ok=True, parents=True)
     OUTPUT_DIR_SOUND.mkdir(exist_ok=True, parents=True)
