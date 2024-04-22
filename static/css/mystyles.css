@@ -211,8 +211,8 @@ input[type=button], input[type=submit], input[type=reset] {
    padding-bottom: 15px;
    float: left;
    width: auto;
-   min-width: 800px;
-   min-height: 600px;
+   min-width: 1536px;
+   min-height: 864px;
    padding: 5px;
    box-sizing: border-box;
 }

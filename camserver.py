@@ -21,6 +21,7 @@ OUTPUT_DIR = Path(__file__).parent / "static"
 OUTPUT_DIR_VIDEO = OUTPUT_DIR / "video"
 OUTPUT_DIR_PICTURES = OUTPUT_DIR / "pictures"
 OUTPUT_DIR_SOUND = OUTPUT_DIR / "sound"
+CAMERA_RESOLUTION = (1536, 864)
 
 app = Flask(__name__, template_folder="template", static_url_path="/static")
 api = Api(app)
@@ -33,7 +34,7 @@ class Camera:
     def __init__(self):
         self.camera = picamera2.Picamera2()
         self.camera.configure(
-            self.camera.create_video_configuration(main={"size": (800, 600)})
+            self.camera.create_video_configuration(main={"size": CAMERA_RESOLUTION})
         )
         self.still_config = self.camera.create_still_configuration()
         self.encoder = MJPEGEncoder(10000000)
@@ -102,7 +103,7 @@ def show_time():
     rightNow = datetime.now()
     logger.info(rightNow)
     currentTime = rightNow.strftime("%d-%m-%Y_%H:%M:%S")
-    logger.info("date and time =", currentTime)
+    logger.info(f"date and time = {currentTime}")
 
     return currentTime
 
