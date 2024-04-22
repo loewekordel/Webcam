@@ -13,7 +13,7 @@ import time
 from pathlib import Path
 import logging
 
-logger = logging.getlogger(__name__)
+logger = logging.getLogger(__name__)
 
 from libcamera import Transform
 
